@@ -4,7 +4,7 @@ const mongoose = require("mongoose");
 // Método para la conexion a la bbdd
 const connection = async () => {
     try {
-        await mongoose.connect("mongodb://localhost:27017/fitness_tracker");
+        await mongoose.connect("ac-109a3xk-shard-00-00.uvsnnfb.mongodb.net:27017/fitness_tracker");
         console.log("*************************************************");
         console.log("Conectado a la bbdd fitness-tracker correctamente");
         console.log("*************************************************");
