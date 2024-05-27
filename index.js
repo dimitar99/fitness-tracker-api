@@ -12,7 +12,6 @@ connection();
 
 // Crear servidor node
 const app = express();
-const port = 3900;
 
 // Configurar cors
 app.use(cors());
@@ -33,14 +32,18 @@ app.use("/exercises", ExerciseRoutes);
 app.use("/routines", RoutinesRoutes);
 
 // Ruta de prueba
-app.get("/test", (req, res) => {
+app.get("/test", (_, res) => {
   return res.status(200).json({
     msg: "Esto es una prueba",
   });
 });
 
+// Host & Port
+const host = '0.0.0.0';
+const port = process.env.PORT || 3900;
+
 // Poner servidor a escuchar peticiones http
-app.listen(port, () => {
+app.listen(port, host, () => {
   console.log("*************************************************");
   console.log("Server running on port", port);
 });
