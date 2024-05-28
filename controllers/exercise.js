@@ -139,7 +139,6 @@ const deleteExercise = (req, res) => {
 
   Exercise.findByIdAndDelete(exerciseId)
     .then((_) => {
-      console.log(exercise);
       return res.status(200).json({
         status: "success",
         message: "Eliminado correctamente",

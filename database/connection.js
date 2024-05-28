@@ -4,6 +4,8 @@ const mongoose = require("mongoose");
 // Método para la conexion a la bbdd
 const connection = async () => {
     try {
+        // Local
+        // await mongoose.connect("mongodb://localhost:27017/fitness_tracker", {
         await mongoose.connect(process.env.MONGODB_URI, {
             useNewUrlParser: true,
             useUnifiedTopology: true
