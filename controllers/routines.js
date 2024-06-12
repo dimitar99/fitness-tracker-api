@@ -99,7 +99,6 @@ const create = (req, res) => {
         message: "Ya existe una rutina para este dia",
       });
     } else {
-      params.day = date;
       const routine_to_save = new Routine(params);
 
       routine_to_save
