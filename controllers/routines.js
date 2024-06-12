@@ -51,10 +51,9 @@ const getByDate = (req, res) => {
   })
     .then((routines) => {
       if (routines && routines.length >= 1) {
-        const routine = routines[0];
         return res.status(200).json({
           status: "success",
-          routine,
+          routines,
         });
       } else {
         return res.status(404).json({
