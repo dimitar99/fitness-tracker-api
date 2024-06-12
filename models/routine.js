@@ -12,7 +12,7 @@ const RoutineSchema = Schema(
       required: true
     },
     day:{
-      type: Date,
+      type: Number,
       required: true
     },
     created_at: {

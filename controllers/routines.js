@@ -34,24 +34,21 @@ const getByDate = (req, res) => {
   // Recoger datos de la peticion
   let params = req.query;
 
-  if (!params.date) {
+  console.log(params);
+
+  if (!params.inicio) {
     return res.status(400).json({
       status: "error",
-      message: "Faltan datos por enviar",
+      message: "Parametro <inicio> requerido",
     });
   }
 
-  console.log(params.date);
-  const date = new Date(params.date);
+  const start = params.inicio;
+  const end = params.fin;
 
-  if (isNaN(date.getTime())) {
-    return res.status(400).send({
-      status: "error",
-      message: 'El parámetro "day" debe ser una fecha válida.',
-    });
-  }
-
-  Routine.find({ $and: [{ day: date }] })
+  Routine.find({
+    $and: [{ day: { $gte: start, $lte: !end ? start : end } }],
+  })
     .then((routines) => {
       if (routines && routines.length >= 1) {
         const routine = routines[0];
@@ -93,25 +90,15 @@ const create = (req, res) => {
     });
   }
 
-  const date = new Date(params.day);
-
-  if (isNaN(date.getTime())) {
-    return res.status(400).send({
-      status: "error",
-      message: 'El parámetro "day" debe ser una fecha válida.',
-    });
-  }
-
   Routine.find({
-    $and: [{ title: params.title }],
+    $and: [{ day: params.day }],
   }).then(async (routine) => {
     if (routine && routine.length >= 1) {
       return res.status(409).json({
         status: "error",
-        message: "Ya existe la rutina",
+        message: "Ya existe una rutina para este dia",
       });
     } else {
-      console.log("params " + params);
       params.day = date;
       const routine_to_save = new Routine(params);
 
