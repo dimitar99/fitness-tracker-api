@@ -43,6 +43,13 @@ const getByDate = (req, res) => {
     });
   }
 
+  if (!params.fin) {
+    return res.status(400).json({
+      status: "error",
+      message: "Parametro <fin> requerido",
+    });
+  }
+
   const start = params.inicio;
   const end = params.fin;
 
@@ -66,6 +73,54 @@ const getByDate = (req, res) => {
       return res.status(500).json({
         status: "error",
         message: "Ha ocurrido un error: " + error,
+      });
+    });
+};
+
+const getById = (req, res) => {
+  // Recoger datos de la peticion
+  let routineId = req.params.id;
+
+  // Comprobar parametros requeridos
+  if (!routineId || typeof routineId !== "string") {
+    return res.status(400).json({
+      status: "error",
+      message: "Falta el id o es incorrecto",
+    });
+  }
+
+  try {
+    routineId = new ObjectId(routineId);
+  } catch (error) {
+    console.log(error);
+    return res.status(400).json({
+      status: "error",
+      message: "Id incorrecto",
+    });
+  }
+
+  Routine.find({
+    $and: [{ _id: routineId }],
+  })
+    .then((routines) => {
+      if (routines && routines.length >= 1) {
+        const routine = routines[0]
+        return res.status(200).json({
+          status: "success",
+          routine,
+        });
+      } else {
+        return res.status(404).json({
+          status: "error",
+          message: "Rutina no encontrada",
+        });
+      }
+    })
+    .catch((error) => {
+      console.log(error);
+      return res.status(500).json({
+        status: "error",
+        message: "Error en el servidor",
       });
     });
 };
@@ -201,6 +256,7 @@ module.exports = {
   test,
   routines,
   getByDate,
+  getById,
   create,
   update,
   deleteRoutine,

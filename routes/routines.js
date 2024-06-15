@@ -6,6 +6,7 @@ const RoutinesController = require("../controllers/routines");
 router.get("/test", RoutinesController.test);
 router.get("", RoutinesController.routines);
 router.get("/by-date", RoutinesController.getByDate);
+router.get("/:id", RoutinesController.getById);
 router.post("/create", RoutinesController.create);
 router.put("/:id/update", RoutinesController.update);
 router.delete("/:id/delete", RoutinesController.deleteRoutine);
