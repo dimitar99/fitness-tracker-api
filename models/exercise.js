@@ -16,15 +16,12 @@ const SeriesSchema = Schema(
     },
     my_weight: {
       type: String,
-      required: true,
     },
     my_reps: {
       type: String,
-      required: true,
     },
     my_rep: {
       type: String,
-      default: "10",
     }
   },
   {
