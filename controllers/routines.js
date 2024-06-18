@@ -152,10 +152,6 @@ const create = (req, res) => {
       });
     } else {
       const routine_to_save = new Routine(params);
-      console.log(`exercises -> ${params.exercises}`);
-
-      console.log("\n\n\n\n");
-      console.log(`despues -> ${routine_to_save}`);
       routine_to_save
         .save()
         .then((routine) => {
