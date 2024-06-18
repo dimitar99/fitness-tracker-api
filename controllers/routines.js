@@ -104,7 +104,7 @@ const getById = (req, res) => {
   })
     .then((routines) => {
       if (routines && routines.length >= 1) {
-        const routine = routines[0]
+        const routine = routines[0];
         return res.status(200).json({
           status: "success",
           routine,
@@ -129,8 +129,6 @@ const create = (req, res) => {
   // Recoger datos de la peticion
   let params = req.body;
 
-  console.log(params);
-
   // Comprobar parametros requeridos
   if (
     !params.title ||
@@ -138,7 +136,7 @@ const create = (req, res) => {
     !params.exercises ||
     !params.day
   ) {
-    return res.status(400).json({
+    return res.status(422).json({
       status: "error",
       message: "Faltan datos por enviar",
     });
@@ -154,7 +152,10 @@ const create = (req, res) => {
       });
     } else {
       const routine_to_save = new Routine(params);
+      console.log(`exercises -> ${params.exercises}`);
 
+      console.log("\n\n\n\n");
+      console.log(`despues -> ${routine_to_save}`);
       routine_to_save
         .save()
         .then((routine) => {
@@ -165,7 +166,7 @@ const create = (req, res) => {
           });
         })
         .catch((error) => {
-          return res.status(500).json({
+          return res.status(422).json({
             status: "error",
             message: "Ha ocurrido un error: " + error,
           });

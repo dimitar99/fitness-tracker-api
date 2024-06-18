@@ -1,4 +1,5 @@
 const { Schema, model } = require("mongoose");
+const Exercise = require("./exercise").schema;
 
 const RoutineSchema = Schema(
   {
@@ -8,7 +9,7 @@ const RoutineSchema = Schema(
     },
     description: String,
     exercises: {
-      type: Array,
+      type: [Exercise],
       required: true
     },
     day:{
