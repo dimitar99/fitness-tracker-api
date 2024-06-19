@@ -195,16 +195,20 @@ const update = (req, res) => {
     });
   }
 
-  Routine.findByIdAndUpdate(routineId, req.body)
-    .then(
-      (_) => {
+  Routine.findByIdAndUpdate(routineId, req.body, { new: true })
+    .then((routine) => {
+      if (routine) {
         return res.status(200).json({
           status: "success",
-          message: "Actualizado correctamente",
+          message: "Actualizada correctamente",
         });
-      },
-      { new: true }
-    )
+      } else {
+        return res.status(500).json({
+          status: "error",
+          message: "Ha ocurrido un error",
+        });
+      }
+    })
     .catch((error) => {
       return res.status(500).json({
         status: "error",

@@ -22,7 +22,7 @@ const SeriesSchema = Schema(
       type: String,
       default: "0",
     },
-    my_rep: {
+    my_rpe: {
       type: String,
       default: "0",
     }
